@@ -78,6 +78,8 @@ const loadSavedJokes = () => {
     
 }
 
+//calculated updated section
+
 //Joke category section
 function getQuery(e) {
     query = e.target.value;
@@ -175,15 +177,35 @@ const getFreeSearch = async() => {
     } 
 }
 
+const today = new Date();
+const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+const dateTime = date + ' ' + time;
+const diffHours = (dt2, dt1) => {
+    let diff = (dt2.getTime() - dt1.getTime()) / 1000;
+    diff /= (60 * 60);
+    return Math.abs(Math.round(diff));
+}
+console.log(dateTime)
+
 const getJokes = async () => {
+    
+
+
+
+
     
 
     try{
         const response = await fetch(urlToRandomJoke);
+        
+
         if (response.ok){
             const jsonResponse = await response.json();
-            
-
+            const postDate = new Date(jsonResponse.updated_at);
+            const currentDate = new Date(dateTime);
+            const updated = (diffHours(postDate, currentDate));
+            jsonResponse.updated_at = updated;
             return jsonResponse;
         }
 

@@ -263,6 +263,9 @@ p.category-text{
     color: transparent;
 }
 
+.joke-update{
+    color: gray;
+}
 
 @media(max-width: 1024px) {
     
@@ -400,6 +403,7 @@ p.category-text{
         bottom: 30px;
         left: 50px;
         font-size: 10px;
+        
     }
     .favorite .joke{
         

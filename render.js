@@ -12,7 +12,7 @@ const createJoke = (joke) => {
     <img class="icon-img" src="${joke.icon_url}" />
 </div>
 <div class="joke-update">
-    <p>${joke.updated_at}</p>
+    <p>Last update: ${joke.updated_at} hours ago</p>
 </div>
 <div class="joke-category">
     <p class="category-text">${joke.categories[0]? joke.categories[0] : "" }</p>
