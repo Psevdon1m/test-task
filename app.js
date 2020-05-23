@@ -79,6 +79,16 @@ const loadSavedJokes = () => {
 }
 
 //calculated updated section
+const today = new Date();
+const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+const dateTime = date + ' ' + time;
+const diffHours = (dt2, dt1) => {
+    let diff = (dt2.getTime() - dt1.getTime()) / 1000;
+    diff /= (60 * 60);
+    return Math.abs(Math.round(diff));
+}
+
 
 //Joke category section
 function getQuery(e) {
@@ -151,7 +161,10 @@ const getCategoryJoke = async () => {
         const response = await fetch(`https://api.chucknorris.io/jokes/random?category=${category}`);
         if(response.ok) {
             const jsonResponse = await response.json();
-            
+            const postDate = new Date(jsonResponse.updated_at);
+            const currentDate = new Date(dateTime);
+            const updated = (diffHours(postDate, currentDate));
+            jsonResponse.updated_at = updated;
             return jsonResponse;
         }
 
@@ -167,8 +180,13 @@ const getFreeSearch = async() => {
         const response = await fetch(`https://api.chucknorris.io/jokes/search?query=${query}`);
         if(response.ok) {
             const jsonResponse = await response.json();
-            
             let randomJoke = Math.floor(Math.random() * (jsonResponse.total))
+            const postDate = new Date(jsonResponse.result[randomJoke].updated_at);
+            const currentDate = new Date(dateTime);
+            const updated = (diffHours(postDate, currentDate));
+            
+            
+            jsonResponse.result[randomJoke].updated_at = updated;
             return jsonResponse.result[randomJoke];
         }
 
@@ -177,23 +195,10 @@ const getFreeSearch = async() => {
     } 
 }
 
-const today = new Date();
-const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-const dateTime = date + ' ' + time;
-const diffHours = (dt2, dt1) => {
-    let diff = (dt2.getTime() - dt1.getTime()) / 1000;
-    diff /= (60 * 60);
-    return Math.abs(Math.round(diff));
-}
-console.log(dateTime)
+
+
 
 const getJokes = async () => {
-    
-
-
-
-
     
 
     try{
