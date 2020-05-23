@@ -8,11 +8,7 @@ let query;
 const presentJokes =document.querySelector(".joke")
 const favorJokes = document.getElementById("favorite-jokes");
 const $icon = $('div:first');
-
-
-
 const $options = $('#options');
-
 const $search = $('#search') ;
 const $fromCat = $('#from-categories')
 const searchBox = document.querySelector('.search-box');
@@ -20,7 +16,7 @@ const searchData = document.getElementById('search-data');
 let savedJoke;
 let jokeIndex;
 
-// NAVIGATION TOGGLE
+// NAVIGATION TOGGLE Section
 let sliderItem = $('#slider-items');
 let navToggle = $('#navToggle');
 
@@ -35,7 +31,7 @@ navToggle.on('click', function(event){
 });
 
 
-
+//Loads info from LocalStorage
 const loadSavedJokes = () => {
     let localStorJokes = [];
     
@@ -44,12 +40,8 @@ const loadSavedJokes = () => {
 
         const raw = localStorage.getItem(i);
         savedJoke = JSON.parse(raw)
-        localStorJokes.push(savedJoke)
-        
-        
-        
+        localStorJokes.push(savedJoke) 
     }
-    
     
     if(savedJoke){
         let savedListOfJokes = [];
@@ -68,25 +60,15 @@ const loadSavedJokes = () => {
                 if(favJokes.includes(joke)){
                     favJokes.splice(favJokes.indexOf(joke), 1)
                 }
-
         }
     
-    
         $favJokes.on('click', function(){
-            
-             
             localStorage.removeItem(jokeIndex)
             favJokes.splice(favJokes.indexOf(joke), 1)
-            
-        
         
             localStorage.removeItem(indexToRemove)
-            console.log(indexToRemove)
-            console.log(localStorJokes)
-            
-            
+
             localStorJokes.splice(localStorJokes.indexOf(indexToRemove), 1)
-            
             
         })})
         
@@ -96,7 +78,7 @@ const loadSavedJokes = () => {
     
 }
 
-
+//Joke category section
 function getQuery(e) {
     query = e.target.value;
     
@@ -104,9 +86,6 @@ function getQuery(e) {
 }
 
 searchData.addEventListener('change', getQuery)
-
-
-
 
 const random = document.getElementById('random').addEventListener('click', function(){
     searchType = this.id;
@@ -128,7 +107,7 @@ $fromCat.on('click', function(){
     return searchType;
 })
 
-//const search = document.getElementById('search');
+
 $search.on('click', function(){
     searchType = this.id
     
@@ -138,8 +117,6 @@ $search.on('click', function(){
     }
    
 })
-
-
 
 const animal = document.getElementById('animal').addEventListener('click', function (){
     category = this.id;
@@ -162,10 +139,9 @@ const dev = document.getElementById('dev').addEventListener('click', function ()
     return category;
 });
 
-
 const urlToRandomJoke = `https://api.chucknorris.io/jokes/random`
 
-
+//Seding different requests to API to get paticular jokes
 
 const getCategoryJoke = async () => {
     try{
@@ -199,7 +175,6 @@ const getFreeSearch = async() => {
     } 
 }
 
-
 const getJokes = async () => {
     
 
@@ -218,13 +193,12 @@ const getJokes = async () => {
     }
 }
 
-
-
 const renderJoke = joke => {
     let jokeContent = createJoke(joke);
     $jokeDiv.append(jokeContent);
 };
 
+//moves(and removes) jokes from search (from favorite) array to favorite jokes
 const moveToFav = (jokeID) => {
     
     const joke = allJokes.find(({id})  => id === jokeID )
@@ -233,7 +207,6 @@ const moveToFav = (jokeID) => {
             localStorage.removeItem(jokeIndex)
             favJokes.splice(favJokes.indexOf(joke), 1)
             
-        
         }else {
             favJokes.push(joke); 
         }
@@ -246,7 +219,6 @@ const moveToFav = (jokeID) => {
             let jokeContent = createJoke(joke); 
             $favJokes.append(jokeContent).addClass('favorite');
             
-            
             $icon.removeClass('far');
             
         })
@@ -257,6 +229,8 @@ const moveToFav = (jokeID) => {
 
 let allJokes = [];
 let favJokes = [];
+
+//this function chooses which request to send and add a received joke to all jokes list. 
 
 const performSearch = () => {
     
@@ -277,28 +251,8 @@ const performSearch = () => {
         
     });
 }
-// const performSearch = () => {
-//     if(document.getElementById('random').checked){
-    
-//     getJokes().then((joke) => {
-       
-        
-//         return renderJoke(joke);
-//     })}
-//     else if(searchType === "from-categories"){
-         
-//         getCategoryJoke().then((joke) => {
-//             return renderJoke(joke);
-//         })
-//     } else if(searchType === "search"){
-        
-//         getFreeSearch().then((joke) => {
-//             return renderJoke(joke)
-//         })
-//     }
-        
-//     }
-    
+   
+//funcitons loads jokes from storage
 loadSavedJokes();
 
 $submit.click(performSearch);
