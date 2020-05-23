@@ -450,6 +450,9 @@ p.category-text{
     .burger {
         right: -95px;
     }
+    h4.favorite{
+        right: 10px;
+    }
 }
 
 @media (max-width: 320px){
