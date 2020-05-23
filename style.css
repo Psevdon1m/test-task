@@ -336,6 +336,14 @@ p.category-text{
     background: transparent;
 }
 
+input[name="filter"]:checked~div {
+    display: block;
+}
+
+input[name="filter"]:not(:checked)~div {
+    display: none;
+}
+
 @media(max-width: 800px){
     .burger{
         right: -375px;

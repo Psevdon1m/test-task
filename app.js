@@ -40,6 +40,7 @@ navToggle.on('click', function(event){
 
 //         const raw = localStorage.getItem(i);
 //         savedJoke = JSON.parse(raw)
+
 //         localStorJokes.push(savedJoke) 
 //     }
     
@@ -106,17 +107,7 @@ const random = document.getElementById('random').addEventListener('click', funct
 })
 
 $fromCat.on('click', function(){
-    searchType = this.id;
-    if($("options:checked")){
-        $(options).removeClass('not-visible');
-    $(options).addClass('visible');
-}
-    if(!$("options:checked")) {
-        $(options).removeClass('visible')
-        $(options).addClass('not-visible') 
-    }
-    
-    return searchType;
+    searchType = this.id
 })
 
 
@@ -227,7 +218,7 @@ const renderJoke = joke => {
 };
 
 //moves(and removes) jokes from search (from favorite) array to favorite jokes
-const moveToFav = (jokeID) => {
+const favToggle = (jokeID) => {
     
     const joke = favJokes.concat(allJokes).find(({id})  => id === jokeID )
     if (joke) {
@@ -259,23 +250,28 @@ renderFavJokes();
 //this function chooses which request to send and add a received joke to all jokes list. 
 
 const performSearch = () => {
+    console.log(category, searchType)
     
     let jokePromise;
 
     if (document.getElementById('random').checked) {
         jokePromise = getJokes();
     }
-    else if (searchType === "from-categories") {
+    else if (searchType === "from-categories" && category) {
+        console.log(category)
         jokePromise = getCategoryJoke()
-    } else {
+    } else if (searchType === 'search' && query){
         jokePromise = getFreeSearch()
     }
 
-    jokePromise.then((joke) => {
-        allJokes.push(joke);
-        return renderJoke(joke)
-        
-    });
+    if(jokePromise) {
+        jokePromise.then((joke) => {
+            allJokes.push(joke);
+            console.log(joke)
+            return renderJoke(joke)
+        });
+    }     
+    
 }
    
 //funcitons loads jokes from storage

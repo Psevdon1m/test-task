@@ -22,14 +22,15 @@
             <div class="from-categories-choise">
                 <input type="radio" name="filter"  value="from-categories" id="from-categories">
                 <label for="from-categories">From Categories</label>
+                <div class="options not-visible" id='options'>
+                    <input class="from-category" type="button"  value="Animal" name="from-category" id="animal" onclick="changeClass(this.id)">
+                    <input class="from-category" type="button" value="Career" name="from-category" id="career" onclick="changeClass(this.id)">
+                    <input class="from-category" type="button" value="Celebrity" name="from-category" id="celebrity" onclick="changeClass(this.id)">
+                    <input class="from-category" type="button" value="DEV" name="from-category" id="dev" onclick="changeClass(this.id)">
+                </div>
             </div>
         
-            <div class="options not-visible" id='options'>
-                <input class="from-category" type="button"  value="Animal" name="from-category" id="animal" onclick="changeClass(this.id)">
-                <input class="from-category" type="button" value="Career" name="from-category" id="career" onclick="changeClass(this.id)">
-                <input class="from-category" type="button" value="Celebrity" name="from-category" id="celebrity" onclick="changeClass(this.id)">
-                <input class="from-category" type="button" value="DEV" name="from-category" id="dev" onclick="changeClass(this.id)">
-            </div>
+            
         
             <div class="search-option">
                 <input type="radio" name="filter"  value="search" id="search" >

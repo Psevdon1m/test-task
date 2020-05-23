@@ -3,7 +3,7 @@ const createJoke = (joke) => {
     <section class = "joke" id="joke-id">
     <div class="container-item" id="container-item1">
     <div class="icon" >
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 4.248c-3.148-5.402-12-3.825-12 2.944 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 12-15.808 0-6.792-8.875-8.306-12-2.944z" class="heart" onclick="moveToFav('${joke.id}')" /></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 4.248c-3.148-5.402-12-3.825-12 2.944 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 12-15.808 0-6.792-8.875-8.306-12-2.944z" class="heart" onclick="favToggle('${joke.id}')" /></svg>
 
     </div>
 <p class="link-text">ID: <a href="${joke.url}">${joke.id}</a></p>
@@ -14,10 +14,8 @@ const createJoke = (joke) => {
 <div class="joke-update">
     <p>Last update: ${joke.updated_at} hours ago</p>
 </div>
-<div class="joke-category">
-    <p class="category-text">${joke.categories[0]? joke.categories[0] : "" }</p>
-</div>         
-    </div>
+${joke.categories[0] ? `<div class="joke-category"><p class="category-text">${joke.categories[0]}</p></div>` : "" }         
+</div>
         
     </section>
     `
@@ -41,12 +39,8 @@ const createJoke = (joke) => {
 
 //Select/deselect category buttons
 
-function changeClass(id)
-{
-    if ($('#' + id).hasClass('chosenBtn'))
-        $('#' + id).removeClass('chosenBtn');
-    else
-    {
+function changeClass(id){
+    
         if ($('.chosenBtn').length <= 1)
         {
             $('#' + id).addClass('chosenBtn').siblings().removeClass('chosenBtn');
@@ -55,5 +49,4 @@ function changeClass(id)
         {
              alert('Only one category can be selected.');
         }       
-    }
 }
