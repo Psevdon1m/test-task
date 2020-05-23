@@ -32,51 +32,51 @@ navToggle.on('click', function(event){
 
 
 //Loads info from LocalStorage
-const loadSavedJokes = () => {
-    let localStorJokes = [];
+// const loadSavedJokes = () => {
+//     let localStorJokes = [];
     
-    console.log(localStorJokes)
-    for( let i= 0; i< localStorage.length ; i++){
+//     console.log(localStorJokes)
+//     for( let i= 0; i< localStorage.length ; i++){
 
-        const raw = localStorage.getItem(i);
-        savedJoke = JSON.parse(raw)
-        localStorJokes.push(savedJoke) 
-    }
+//         const raw = localStorage.getItem(i);
+//         savedJoke = JSON.parse(raw)
+//         localStorJokes.push(savedJoke) 
+//     }
     
-    if(savedJoke){
-        let savedListOfJokes = [];
-        let indexToRemove;
+//     if(savedJoke){
+//         let savedListOfJokes = [];
+//         let indexToRemove;
         
-        localStorJokes.map((localJoke , i) => {
-            console.log(localJoke, i)
+//         localStorJokes.map((localJoke , i) => {
+//             console.log(localJoke, i)
             
-            indexToRemove = i;
-            let savedJokeContent = createJoke(localJoke)
-            $favJokes.append(savedJokeContent).addClass("favorite")
-            savedListOfJokes.push(savedJokeContent)
-            favJokes.push(savedJokeContent)
-            const joke = savedListOfJokes.find(({id})  => id === savedJokeContent.id )
-            if (joke) {
-                if(favJokes.includes(joke)){
-                    favJokes.splice(favJokes.indexOf(joke), 1)
-                }
-        }
+//             indexToRemove = i;
+//             let savedJokeContent = createJoke(localJoke)
+//             $favJokes.append(savedJokeContent).addClass("favorite")
+//             savedListOfJokes.push(savedJokeContent)
+//             favJokes.push(savedJokeContent)
+//             const joke = savedListOfJokes.find(({id})  => id === savedJokeContent.id)
+//             if (joke) {
+//                 if(favJokes.includes(joke)){
+//                     favJokes.splice(favJokes.indexOf(joke), 1)
+//                 }
+//         }
     
-        $favJokes.on('click', function(){
-            localStorage.removeItem(jokeIndex)
-            favJokes.splice(favJokes.indexOf(joke), 1)
+//         $favJokes.on('click', function(){
+//             localStorage.removeItem(jokeIndex)
+//             favJokes.splice(favJokes.indexOf(joke), 1)
         
-            localStorage.removeItem(indexToRemove)
+//             localStorage.removeItem(indexToRemove)
 
-            localStorJokes.splice(localStorJokes.indexOf(indexToRemove), 1)
+//             localStorJokes.splice(localStorJokes.indexOf(indexToRemove), 1)
             
-        })})
+//         })})
         
-    }else {
-        console.log('i am not running')
-    }
+//     }else {
+//         console.log('i am not running')
+//     }
     
-}
+// }
 
 //calculated updated section
 const today = new Date();
@@ -207,6 +207,7 @@ const getJokes = async () => {
 
         if (response.ok){
             const jsonResponse = await response.json();
+            console.log(jsonResponse);
             const postDate = new Date(jsonResponse.updated_at);
             const currentDate = new Date(dateTime);
             const updated = (diffHours(postDate, currentDate));
@@ -228,34 +229,32 @@ const renderJoke = joke => {
 //moves(and removes) jokes from search (from favorite) array to favorite jokes
 const moveToFav = (jokeID) => {
     
-    const joke = allJokes.find(({id})  => id === jokeID )
+    const joke = favJokes.concat(allJokes).find(({id})  => id === jokeID )
     if (joke) {
         if(favJokes.includes(joke)){
-            localStorage.removeItem(jokeIndex)
-            favJokes.splice(favJokes.indexOf(joke), 1)
             
+            favJokes.splice(favJokes.indexOf(joke), 1)
         }else {
             favJokes.push(joke); 
         }
-        
-        $favJokes.empty();
-        favJokes.forEach(joke => {
-            jokeIndex = favJokes.indexOf(joke);  
-            localStorage.setItem(jokeIndex, JSON.stringify(joke));    
-
-            let jokeContent = createJoke(joke); 
-            $favJokes.append(jokeContent).addClass('favorite');
-            
-            $icon.removeClass('far');
-            
-        })
-        
+        localStorage.setItem('favJokes', JSON.stringify(favJokes))
+        renderFavJokes();
     }
     
 }
 
+const renderFavJokes = () => {
+    $favJokes.empty();
+    favJokes.forEach(joke => {  
+        let jokeContent = createJoke(joke); 
+        $favJokes.append(jokeContent).addClass('favorite'); 
+        $icon.removeClass('far');
+    });
+}
+
 let allJokes = [];
-let favJokes = [];
+let favJokes = JSON.parse(localStorage.getItem('favJokes') || '[]');
+renderFavJokes();
 
 //this function chooses which request to send and add a received joke to all jokes list. 
 
@@ -280,6 +279,6 @@ const performSearch = () => {
 }
    
 //funcitons loads jokes from storage
-loadSavedJokes();
+
 
 $submit.click(performSearch);
