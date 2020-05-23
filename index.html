@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <title>Jack's jokes</title>
+</head>
+<body>
+    
+    <main class="main">
+        <h1 class="title">Hey!</h1>
+        <h3 class="subtitle">Let's try to find a joke for you:</h3>
+        <form class="form" action="" method='GET'>
+            <div class="random-choise">
+                <input type="radio" name="filter" value="random" id="random">
+                <label for="random">Random</label>
+            </div>
+        
+            <div class="from-categories-choise">
+                <input type="radio" name="filter"  value="from-categories" id="from-categories">
+                <label for="from-categories">From Categories</label>
+            </div>
+        
+            <div class="options not-visible" id='options'>
+                <input class="from-category" type="button"  value="Animal" name="from-category" id="animal" onclick="changeClass(this.id)">
+                <input class="from-category" type="button" value="Career" name="from-category" id="career" onclick="changeClass(this.id)">
+                <input class="from-category" type="button" value="Celebrity" name="from-category" id="celebrity" onclick="changeClass(this.id)">
+                <input class="from-category" type="button" value="DEV" name="from-category" id="dev" onclick="changeClass(this.id)">
+            </div>
+        
+            <div class="search-option">
+                <input type="radio" name="filter"  value="search" id="search" >
+                <label for="search">Search</label>
+                <div class="search-box not-visible">
+                    <input id="search-data"type="text" value='' placeholder="Free text search...">
+                </div>
+            </div>
+            
+        </form>
+        <button class="search-btn" type='submit' id="search-button">Get a joke</button>
+
+        <!-- Joke section goes here -->
+        <div class="container" id="container1">
+            
+        </div>
+
+
+    </main>
+    <section class="slider">
+        <div class="nav">
+            <h4 class="favorite">Favorite</h4>
+            <button class="burger " type="button" id="navToggle" >
+            <span class="burger-item-top">first line</span>
+            <span class="burger-item-bottom">second line</span>
+
+            
+            </button>
+        </div>
+        <div class="slider-items" id="slider-items">
+            
+            <div id="favorite-jokes">
+
+            </div>
+        </div>
+        
+        
+
+        
+        
+    </section>
+    
+<script src="https://kit.fontawesome.com/1fdc56e393.js" crossorigin="anonymous"></script>   
+<script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"></script>
+<script src="render.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
