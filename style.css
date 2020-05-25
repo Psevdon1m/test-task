@@ -105,6 +105,7 @@ input#search-data{
     top: 40px;
     right: 40px;
     cursor: pointer;
+    z-index: 10;
 }
 .icon-clicked {
     background-color: red;
@@ -344,6 +345,13 @@ input[name="filter"]:not(:checked)~div {
     display: none;
 }
 
+@media(max-width: 823px){
+    .burger{
+        right: -395px;
+    }
+}
+
+
 @media(max-width: 800px){
     .burger{
         right: -375px;
@@ -369,6 +377,31 @@ input[name="filter"]:not(:checked)~div {
     
 
 }
+
+@media(max-width: 736px){
+    .burger{
+        right: -350px;
+    }
+}
+
+@media(max-width: 667px){
+    .burger{
+        right: -310px;
+    }
+}
+
+@media(max-width: 640px){
+    .burger{
+        right: -290px;
+    }
+}
+
+@media(max-width:568px){
+    .burger{
+        right: -250px;
+    }
+}
+
 
 @media(max-width: 540px){
     .slider{
@@ -460,6 +493,12 @@ input[name="filter"]:not(:checked)~div {
     }
     h4.favorite{
         right: 10px;
+    }
+}
+
+@media(max-width: 360px){
+    .burger{
+        right: -85px;
     }
 }
 
