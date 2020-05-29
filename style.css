@@ -198,14 +198,15 @@ p.category-text{
 
 .favorite .heart{
     fill: red; 
+    stroke: transparent;
     
     
     
 }
 
 .heart{
-    fill: rgb(192, 187, 187);
-    
+    fill: transparent;
+    stroke: red;
     width: 30px;
     height: 30px;
     border: 1px solid red;
